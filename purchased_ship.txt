@@ -1,0 +1,2 @@
+./ShipPictures/ship_7_transparent.gif
+./ShipPictures/ship_4_transparent.gif
