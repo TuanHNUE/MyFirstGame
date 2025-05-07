@@ -31,16 +31,9 @@ public class SpaceInvaders extends JPanel implements ActionListener, KeyListener
     SoundPlayer bossWinSound;
 
     Image shipImg;
-    Image shipFlyingImg;
-    Image shipMoveLeftImg;
-    Image shipMoveRightImg;
     Image alienImg;
     Image alienExplosionImage;
-    Image alienCyanImg;
-    Image alienMagentaImg;
-    Image alienYellowImg;
     Image bulletImg;
-    ArrayList<Image> alienImgArray;
     Image backgroundImg;
     Image enemyBulletImg;
     Image bossImg;
@@ -188,13 +181,8 @@ public class SpaceInvaders extends JPanel implements ActionListener, KeyListener
         // bossImg = bossImages.get(randomIndex);
         // bossImg = new ImageIcon(getClass().getResource("./boss.png")).getImage();
         // shipImg = new ImageIcon(getClass().getResource("./ship_flying.gif")).getImage();
-        shipMoveLeftImg = new ImageIcon(getClass().getResource("./ship_tilt_left_fire.gif")).getImage();
-        shipMoveRightImg = new ImageIcon(getClass().getResource("./ship_tilt_right_fire.gif")).getImage();
         alienImg = new ImageIcon(getClass().getResource("./alien_red.png")).getImage();
         alienExplosionImage = new ImageIcon(getClass().getResource("./alien_explosion.gif")).getImage();
-        alienCyanImg = new ImageIcon(getClass().getResource("./alien_red.png")).getImage();
-        alienMagentaImg = new ImageIcon(getClass().getResource("./alien_red.png")).getImage();
-        alienYellowImg = new ImageIcon(getClass().getResource("./alien_red.png")).getImage();
         bulletImg = new ImageIcon(getClass().getResource("./fire.png")).getImage();
         backgroundImg = new ImageIcon(getClass().getResource("./background.jpg")).getImage();
         enemyBulletImg = new ImageIcon(getClass().getResource("./shit.png")).getImage();
@@ -235,12 +223,6 @@ public class SpaceInvaders extends JPanel implements ActionListener, KeyListener
             bossPhase2Sound.setVolume(soundFile.readVolumeSound());
             bossWinSound.setVolume(soundFile.readVolumeSound());
         }
-
-        alienImgArray = new ArrayList<Image>();
-        alienImgArray.add(alienImg);
-        alienImgArray.add(alienCyanImg);
-        alienImgArray.add(alienMagentaImg);
-        alienImgArray.add(alienYellowImg);
 
         //Button for gameover
         this.retryButton = new JButton("Play again");
@@ -474,15 +456,12 @@ public class SpaceInvaders extends JPanel implements ActionListener, KeyListener
                     if (boss.x + boss.width >= boardWidth || boss.x <= 0) {
                         bossVelocityX *= -1;
                     }
-                    double shootChance = isPhase2 ? 0.03 : 0.01; // Tăng xác suất bắn đạn khi boss vào giai đoạn 2
+                    double shootChance = isPhase2 ? 0.02 : 0.01; // Tăng xác suất bắn đạn khi boss vào giai đoạn 2
                     // Boss bắn đạn ngẫu nhiên
                     if (Math.random() < shootChance) { // 1% xác suất bắn đạn mỗi khung hình
                         if (isPhase2) {
                             enemyBullets.add(new Block(boss.x + boss.width * 2 / 5, boss.y + boss.height, enemyBulletWidth, enemyBulletHeight, enemyBulletImg));
                             enemyBullets.add(new Block(boss.x + boss.width * 3 / 5, boss.y + boss.height, enemyBulletWidth, enemyBulletHeight, enemyBulletImg));
-                            if (Math.random() < 0.01) {
-                                
-                            }
                         }else {
                             enemyBullets.add(new Block(boss.x + boss.width / 2, boss.y + boss.height, enemyBulletWidth, enemyBulletHeight, enemyBulletImg));
                         }
@@ -504,7 +483,7 @@ public class SpaceInvaders extends JPanel implements ActionListener, KeyListener
                 if (boss.x + boss.width >= boardWidth || boss.x <= 0) {
                     bossVelocityX *= -1;
                 }
-                double shootChance = isPhase2 ? 0.03 : 0.01; // Tăng xác suất bắn đạn khi boss vào giai đoạn 2
+                double shootChance = isPhase2 ? 0.02 : 0.01; // Tăng xác suất bắn đạn khi boss vào giai đoạn 2
                 // Boss bắn đạn ngẫu nhiên
                 if (Math.random() < shootChance) { // 1% xác suất bắn đạn mỗi khung hình
                     if (isPhase2) {
@@ -642,13 +621,12 @@ public class SpaceInvaders extends JPanel implements ActionListener, KeyListener
         Random random = new Random();
         for (int c = 0; c < alienColumns; c++) {
             for (int r = 0; r < alienRows; r++) {
-                int randomImgIndex = random.nextInt(alienImgArray.size());
                 Block alien = new Block(
                     alienX + c * alienWidth,
                     alienY + r * alienHeight,
                     alienWidth,
                     alienHeight,
-                    alienImgArray.get(randomImgIndex)
+                    alienImg
                 );
                 alienArray.add(alien);
             }
